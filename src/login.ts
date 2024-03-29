@@ -1,8 +1,7 @@
 import axios from 'axios';
-import querystring from 'querystring';
 
 export const login = async (userId: string, userPassword: string) => {
-  let response = await axios.get('https://www.clien.net/service', {
+  const response = await axios.get('https://www.clien.net/service', {
     headers: {
       'User-Agent':
         'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
@@ -15,11 +14,12 @@ export const login = async (userId: string, userPassword: string) => {
       'Upgrade-Insecure-Requests': '1',
     },
   });
-  const clienCookie: Map<string, string> = new Map<string, string>();
-  if (!response) return clienCookie;
-  if (!response.headers) return clienCookie;
 
-  let cookies = response.headers['Set-Cookie'];
+  const clienCookie: Map<string, string> = new Map<string, string>();
+  if (!response) throw new Error('Failed to get CSRF token');
+  if (!response.headers) throw new Error('Failed to get CSRF token');
+
+  let cookies = response.headers['set-cookie'];
 
   if (cookies && Array.isArray(cookies)) {
     cookies
@@ -30,15 +30,15 @@ export const login = async (userId: string, userPassword: string) => {
   const csrf = response.data.match(/<input type="hidden" name="_csrf" value="(.+?)"/)[1];
 
   try {
-    response = await axios.post(
+    const response = await axios.post(
       'https://www.clien.net/service/login',
-      querystring.stringify({
+      {
         userId: userId,
         userPassword: userPassword,
         _csrf: csrf,
-        deviceId: null,
+        deviceId: `${userId}204912803192`,
         totpcode: null,
-      }),
+      },
       {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -61,7 +61,7 @@ export const login = async (userId: string, userPassword: string) => {
       },
     );
 
-    cookies = response.headers['Set-Cookie'];
+    cookies = response.headers['set-cookie'];
     if (cookies && Array.isArray(cookies)) {
       cookies
         .map(cookie => cookie.split(';')[0])
@@ -69,8 +69,9 @@ export const login = async (userId: string, userPassword: string) => {
     }
 
     console.info(`로그인 성공`);
-  } catch (e) {
-    console.error(e);
+  } catch (error) {
+    if (error instanceof Error) console.error(error.message);
+    throw error;
   }
 
   return clienCookie;

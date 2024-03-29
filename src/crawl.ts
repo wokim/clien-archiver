@@ -27,7 +27,7 @@ export interface Metadata {
   imageUrls: { url: string; path: string }[];
 }
 
-export async function crawlPost(url: string): Promise<{ metadata: Metadata; body: Post }> {
+export async function crawlPost(url: string): Promise<{ metadata: Metadata; body: Post } | undefined> {
   try {
     const response = await axios.get(url);
     const $ = load(response.data);
@@ -103,7 +103,6 @@ export async function crawlPost(url: string): Promise<{ metadata: Metadata; body
     if (error instanceof Error) {
       console.error(`크롤링 에러: ${error.message}`);
     }
-    throw error;
   }
 }
 
@@ -131,7 +130,7 @@ export async function writeFile(post: { metadata: Metadata; body: Post }) {
     console.log(`게시물 저장 완료: ${filePath}`);
   } catch (error) {
     if (error instanceof Error) {
-      console.error(`크롤링 에러: ${error.message}`);
+      console.error(`파일을 저장하는 중에 에러가 발생하였습니다: ${error.message}`);
     }
   }
 }

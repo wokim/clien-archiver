@@ -93,14 +93,14 @@ $ clien-archiver archive --urls urls.txt --dry-run
 > 아이디와 비밀번호는 절대 저장하지 않습니다. 소스코드가 공개되어 있으므로 확인 가능합니다.
 
 ```sh
-$ clien-archiver backup --user-id <사용자 아이디> --password <비밀번호>
+$ clien-archiver backup --id <사용자 아이디> --password <비밀번호>
 
 # 예시:
-$ clien-archiver backup --user-id myusername --password mypassword
+$ clien-archiver backup --id myusername --password mypassword
 
 # dry-run 명령어를 추가하면 실제로 게시물을 저장하지 않고, 처리 결과만을 확인할 수 있습니다.
 # 현재 경로에 my-articles.txt 라는 파일로 저장합니다.
-$ clien-archiver backup --user-id myusername --password mypassword --dry-run
+$ clien-archiver backup --id myusername --password mypassword --dry-run
 ```
 
 ### 도움말

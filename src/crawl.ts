@@ -71,7 +71,8 @@ export async function crawlPost(url: string): Promise<{ metadata: Metadata; body
       .map((_, img) => $(img).attr('src'))
       .get()
       .map(imageUrl => {
-        const imagePath = path.join(directory, 'images', imageUrl.replace('https://edgio.clien.net', '')).split('?')[0];
+        const url = new URL(imageUrl || '');
+        const imagePath = path.join(directory, 'images', url.pathname);
 
         // 콘텐츠의 이미지 경로 변경
         if (content) {

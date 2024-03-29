@@ -1,0 +1,44 @@
+name: Release
+
+on:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        include:
+          - os: ubuntu-latest
+            target: node14-linux-x64
+            output: linux-x64-14.15.3
+          - os: macos-latest
+            target: mac-x64-14.15.3
+            output: clien-archiver-macos-x64
+          - os: windows-latest
+            target: windows-x64-14.15.3
+            output: clien-archiver-win-x64.exe
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14.x'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: |
+          npm run build
+          npx nexe lib/index.js --target ${{ matrix.target }} -o ${{ matrix.output }}
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: clien-archiver
+          path: ${{ matrix.output }}

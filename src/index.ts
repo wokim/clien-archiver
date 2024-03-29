@@ -5,6 +5,8 @@ import { getMyArticleUrls } from './utils';
 import fs from 'fs';
 import path from 'path';
 
+const DEALY_IN_MS = 1000;
+
 async function main() {
   program
     .command('archive')
@@ -39,7 +41,7 @@ async function main() {
               await writeFile(post);
             }
             // wait for 0.5 second
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await new Promise(resolve => setTimeout(resolve, DEALY_IN_MS));
           }
         }
 
@@ -78,7 +80,7 @@ async function main() {
               await writeFile(post);
             }
             // wait for 0.5 second
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await new Promise(resolve => setTimeout(resolve, DEALY_IN_MS));
           }
         }
 

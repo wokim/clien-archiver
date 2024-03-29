@@ -1,6 +1,6 @@
 # Clien Archiver
 
-Clien-Archiver is a CLI tool that allows users to backup and manage posts from the [Clien.net](https://www.clien.net) website in a local environment. With this tool, you can save the content and images of Clien posts to your local environment.
+Clien-Archiver is a CLI tool that allows users to backup and manage posts from the [clien.net](https://www.clien.net) website in a local environment. With this tool, you can save the content and images of [clien](https://www.clien.net) posts to your local environment.
 
 ## Features
 

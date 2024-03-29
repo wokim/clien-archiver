@@ -91,6 +91,8 @@ async function main() {
           const sanitizedUrl = url.split('?')[0];
           console.log(`Archiving URL: ${sanitizedUrl}`);
           await crawlPost(sanitizedUrl);
+          // wait for 1 second
+          await new Promise(resolve => setTimeout(resolve, 1000));
         }
       } else {
         console.log('Please provide either --url or --urls option.');

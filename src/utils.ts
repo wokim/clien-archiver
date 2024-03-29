@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { load } from 'cheerio';
 
-export const getMyPostUrls = async (cookie: string, type: string, sk: string) => {
+export const getMyArticleUrls = async (cookie: string, type: string, sk: string) => {
   let po = 0;
   const myArticleList: { title: string; url: string }[] = [];
 

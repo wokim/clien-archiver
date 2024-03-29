@@ -1,7 +1,7 @@
 import { program } from 'commander';
-import { crawlPost } from './crawl';
+import { crawlPost, writeFile } from './crawl';
 import { login } from './login';
-import { getMyPostUrls } from './post';
+import { getMyArticleUrls } from './utils';
 import fs from 'fs';
 import path from 'path';
 
@@ -18,7 +18,7 @@ async function main() {
 
       if (userId && userPassword) {
         const clienCookie = await login(userId, userPassword);
-        const articleList = await getMyPostUrls(
+        const articleList = await getMyArticleUrls(
           Array.from(clienCookie.keys())
             .map(key => `${key}=${clienCookie.get(key)}`)
             .join('; '),
@@ -37,7 +37,8 @@ async function main() {
       if (url) {
         const sanitizedUrl = url.split('?')[0];
         console.log(`Archiving URL: ${sanitizedUrl}`);
-        await crawlPost(sanitizedUrl);
+        const post = await crawlPost(sanitizedUrl);
+        await writeFile(post);
       } else if (urls) {
         const csvPath = path.resolve(urls);
         const csvData = fs.readFileSync(csvPath, 'utf-8');
@@ -47,9 +48,10 @@ async function main() {
         for (const url of urlList) {
           const sanitizedUrl = url.split('?')[0];
           console.log(`Archiving URL: ${sanitizedUrl}`);
-          await crawlPost(sanitizedUrl);
+          const post = await crawlPost(sanitizedUrl);
+          await writeFile(post);
           // wait for 1 second
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          await new Promise(resolve => setTimeout(resolve, 500));
         }
       } else {
         console.log('Please provide either --url or --urls option.');

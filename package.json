@@ -1,0 +1,41 @@
+{
+  "name": "clien-archiver",
+  "description": "Clien-Archiver is an open-source project that allows users to backup and manage posts from the Clien.net website in a local environment. It also offers various plugins to export backed-up data to other platforms, such as Damoang, Reddit, and more, providing flexibility and convenience for users.",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "ts-node src/index.ts",
+    "lint": "eslint 'src/**/*.ts'",
+    "lint:fix": "eslint 'src/**/*.ts' --fix",
+    "prettier": "prettier --write 'src/**/*.ts'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wokim/clien-archiver.git"
+  },
+  "keywords": [
+    "clien"
+  ],
+  "author": "Wonshik Alex Kim <wonshikkim.kr@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wokim/clien-archiver/issues"
+  },
+  "homepage": "https://github.com/wokim/clien-archiver#readme",
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "@typescript-eslint/eslint-plugin": "^7.4.0",
+    "@typescript-eslint/parser": "^7.4.0",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "axios": "^1.6.8",
+    "cheerio": "^1.0.0-rc.12",
+    "commander": "^12.0.0",
+    "moment-timezone": "^0.5.45"
+  }
+}

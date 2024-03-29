@@ -1,0 +1,41 @@
+{
+  "editor.tabSize": 2,
+  "editor.renderWhitespace": "all",
+  "editor.formatOnPaste": true,
+  "editor.insertSpaces": true,
+  "editor.renderControlCharacters": true,
+  "editor.formatOnSave": true,
+  "files.trimTrailingWhitespace": true,
+  "files.trimFinalNewlines": true,
+  "files.insertFinalNewline": true,
+  "files.exclude": {
+    "**/.git": true,
+    "**/.DS_Store": true,
+    "**/node_modules": true,
+    "**/*.d.ts": true,
+    "lib": true,
+    "coverage": true,
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "lib": true
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "npm.exclude": "**/extensions/**",
+  "npm.packageManager": "npm",
+  "emmet.excludeLanguages": [],
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.quoteStyle": "single",
+  "[plaintext]": {
+    "files.insertFinalNewline": false
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "json.maxItemsComputed": 5000
+}

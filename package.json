@@ -37,6 +37,8 @@
     "axios": "^1.6.8",
     "cheerio": "^1.0.0-rc.12",
     "commander": "^12.0.0",
-    "moment-timezone": "^0.5.45"
-  }
+    "moment-timezone": "^0.5.45",
+    "querystring": "^0.2.0"
+  },
+  "version": "1.0.0"
 }

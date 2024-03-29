@@ -37,8 +37,12 @@ jobs:
           npm run build
           npx nexe lib/index.js --target ${{ matrix.target }} -o ${{ matrix.output }}
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v4
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: clien-archiver
-          path: ${{ matrix.output }}
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./${{ matrix.output }}
+          asset_name: ${{ matrix.output }}
+          asset_content_type: application/octet-stream

@@ -40,12 +40,16 @@ jobs:
           npm run build
           npx nexe lib/index.js --target ${{ matrix.target }} -o ${{ matrix.output }}
 
+      - name: Get Release Version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+
       - name: Upload Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url }}
-          asset_path: ./${{ matrix.output }}
-          asset_name: ${{ matrix.output }}
+          asset_path: ./${{ matrix.output }}${{ startsWith(matrix.output, 'clien-archiver-win') && '.exe' || '' }}
+          asset_name: ${{ matrix.output }}-${{ steps.get_version.outputs.VERSION }}${{ startsWith(matrix.output, 'clien-archiver-win') && '.exe' || '' }}
           asset_content_type: application/octet-stream
